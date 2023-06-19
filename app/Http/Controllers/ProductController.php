@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $products = [];
 
         $categories = ['Category 1', 'Category 2', 'Category 3'];
         $images = [
-            'https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/nike01', 
-            'https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/nike02', 
+            'https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/nike01',
+            'https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/nike02',
             'https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/nike03',
             'https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/nike04',
             'https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/nike05',
@@ -44,14 +44,14 @@ class ProductController extends Controller
         if ($request->has('category')) {
             $categoryToFilter = 'category';
             $products = array_filter($products, function($product) use ($categoryToFilter) {
-                return filterByCategory($product, $categoryToFilter);
+                return $this->filterByCategory($product, $categoryToFilter);
             });
         }
 
         if ($request->has('price_range')) {
             $categoryToFilter = 'price';
             $products = array_filter($products, function($product) use ($categoryToFilter) {
-                return filterByPrice($product, $categoryToFilter);
+                return $this->filterByPrice($product, $categoryToFilter);
             });
         }
 
